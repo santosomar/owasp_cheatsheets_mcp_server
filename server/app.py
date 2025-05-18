@@ -20,7 +20,7 @@ def startup_event():
                 "git", "clone", "--depth", "1", repo_url, str(dest)
             ], check=True)
         except Exception as exc:
-            print(f"Failed to clone cheat sheet repo: {exc}")
+            logging.error(f"Failed to clone cheat sheet repo: {exc}")
 
 @app.get("/health")
 def health():
