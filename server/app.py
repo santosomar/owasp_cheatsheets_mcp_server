@@ -35,9 +35,13 @@ def list_cheatsheets():
 
 @app.get("/cheatsheets/{name}", response_class=PlainTextResponse)
 def get_cheatsheet(name: str):
-    file_path = CHEATSHEETS_DIR / name
-    if not file_path.exists():
-        raise HTTPException(status_code=404, detail="Cheat sheet not found")
+    try:
+        # Resolve the full path and ensure it is within CHEATSHEETS_DIR
+        file_path = (CHEATSHEETS_DIR / name).resolve()
+        if not file_path.is_file() or not str(file_path).startswith(str(CHEATSHEETS_DIR)):
+            raise HTTPException(status_code=404, detail="Cheat sheet not found")
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid cheat sheet name")
     return file_path.read_text()
 
 @app.get("/search")
