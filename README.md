@@ -1,4 +1,4 @@
-# owasp_cheatsheets_mcp_server
+# OWASP Cheat Sheet MCP Server
 
 A minimal Model Context Protocol (MCP) compatible server providing the OWASP Cheat Sheets.
 
